@@ -31,6 +31,7 @@ const App = () => (
               <Route path="/chat" element={<Chat />} />
               <Route path="/invoice/:id" element={<Invoice />} />
               <Route path="/portal" element={<Portal />} />
+              <Route path="/crm" element={<CrmDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

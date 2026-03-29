@@ -276,7 +276,7 @@ const CrmDashboard = () => {
   ];
 
   const containerAnim = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.2 } } };
-  const itemAnim = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } };
+  const itemAnim = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } } };
 
   return (
     <div className="min-h-screen" style={{ background: "hsl(0 0% 7%)", fontFamily: "'Inter', sans-serif" }}>

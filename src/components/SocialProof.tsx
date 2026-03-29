@@ -5,7 +5,7 @@ import { useLang } from "@/lib/LangContext";
 
 const reviews = [
   { name: "Oleksii K.", text: "Got my Canada work visa in 11 days. Unbelievable." },
-  { name: "Sarah M.", text: "The AI consultation was so quick and easy. Fully guided." },
+  { name: "Sarah M.", text: "The specialist consultation was so quick and easy. Fully guided." },
   { name: "Dmitro V.", text: "US tourist visa approved. The team handled everything." },
   { name: "Amina R.", text: "They coached me for the interview. I felt 100% ready." },
   { name: "James L.", text: "Canada PR processed in record time." },

@@ -11,6 +11,7 @@ import Intake from "./pages/Intake";
 import Chat from "./pages/Chat";
 import Invoice from "./pages/Invoice";
 import Portal from "./pages/Portal";
+import CrmDashboard from "./pages/CrmDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/chat" element={<Chat />} />
               <Route path="/invoice/:id" element={<Invoice />} />
               <Route path="/portal" element={<Portal />} />
+              <Route path="/crm" element={<CrmDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

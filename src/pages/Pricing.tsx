@@ -18,6 +18,7 @@ const Pricing = () => {
   const [destination, setDestination] = useState<string>("USA");
   const [purpose, setPurpose] = useState<string>("Work");
   const [express, setExpress] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
 
   const base = basePrices[destination]?.[purpose] ?? 500;
   const expressFee = express ? 150 : 0;

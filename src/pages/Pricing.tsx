@@ -140,15 +140,16 @@ const Pricing = () => {
               </div>
             </div>
 
-            <a
-              href="/portal"
+            <button
+              onClick={() => setCheckoutOpen(true)}
               className="glow-primary glow-pulse mt-4 block w-full rounded-xl bg-primary py-4 text-center text-lg font-bold text-primary-foreground transition-all duration-300 hover:scale-[1.02]"
             >
               Proceed to Application
-            </a>
+            </button>
           </div>
         </motion.div>
       </section>
+      <CryptoCheckout open={checkoutOpen} onClose={() => setCheckoutOpen(false)} />
       <Footer />
     </div>
   );

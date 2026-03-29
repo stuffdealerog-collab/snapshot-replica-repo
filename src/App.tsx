@@ -11,6 +11,7 @@ import Intake from "./pages/Intake";
 import Chat from "./pages/Chat";
 import Invoice from "./pages/Invoice";
 import Portal from "./pages/Portal";
+import CrmDashboard from "./pages/CrmDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

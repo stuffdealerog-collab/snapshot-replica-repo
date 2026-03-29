@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CryptoCheckout from "@/components/CryptoCheckout";
 
 const destinations = ["USA", "Canada", "UK", "Australia"] as const;
 const purposes = ["Tourism", "Work"] as const;

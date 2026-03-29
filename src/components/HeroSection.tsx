@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -37,12 +38,12 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
           className="mt-10"
         >
-          <a
-            href="#"
+          <Link
+            to="/pricing"
             className="glow-primary glow-pulse inline-block rounded-xl bg-primary px-8 py-4 text-lg font-bold text-primary-foreground transition-all duration-300 hover:scale-105"
           >
             Start Your Application
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

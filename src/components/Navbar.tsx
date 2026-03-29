@@ -28,6 +28,9 @@ const Navbar = () => {
           >
             {lang === "en" ? "EN / UA" : "UA / EN"}
           </button>
+          <Link to="/about" className="text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground">
+            About
+          </Link>
           <Link to="/pricing" className="text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground">
             {t("nav.pricing")}
           </Link>
@@ -59,6 +62,9 @@ const Navbar = () => {
             >
               {lang === "en" ? "EN / UA" : "UA / EN"}
             </button>
+            <Link to="/about" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              About
+            </Link>
             <Link to="/pricing" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-muted-foreground hover:text-foreground">
               {t("nav.pricing")}
             </Link>

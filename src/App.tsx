@@ -12,6 +12,7 @@ import Chat from "./pages/Chat";
 import Invoice from "./pages/Invoice";
 import Portal from "./pages/Portal";
 import CrmDashboard from "./pages/CrmDashboard";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

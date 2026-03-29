@@ -26,7 +26,7 @@ export const i18n: Record<Lang, Record<string, string>> = {
     "bento.heading": "Why Choose Us",
     "bento.speed.title": "2 Weeks, Not 4 Months",
     "bento.speed.text": "Our express processing cuts the standard timeline by 80%.",
-    "bento.ai.title": "Smart AI Consultation",
+    "bento.ai.title": "Smart Specialist Consultation",
     "bento.ai.text": "Our AI assistant gathers your details, evaluates your case, and prepares your file — all via a simple chat.",
     "bento.coach.title": "We Coach You",
     "bento.coach.text": "Before your embassy interview, we tell you exactly what to say, how to act, and what to bring.",
@@ -65,11 +65,11 @@ export const i18n: Record<Lang, Record<string, string>> = {
     "intake.passport": "Passport Number",
     "intake.next": "Continue",
     "intake.back": "Back",
-    "intake.confirm": "Proceed to AI Consultation →",
+    "intake.confirm": "Proceed to Specialist Consultation →",
     "intake.note": "You will chat with our AI assistant to complete your application. This takes approximately 5 minutes.",
 
     // Chat
-    "chat.title": "AI Consultation",
+    "chat.title": "Specialist Consultation",
     "chat.placeholder": "Type your response...",
     "chat.send": "Send",
     "chat.powered": "Powered by AI",

@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import SocialProof from "@/components/SocialProof";
 import BentoGrid from "@/components/BentoGrid";
 import Footer from "@/components/Footer";
 
@@ -8,6 +9,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <SocialProof />
       <BentoGrid />
       <Footer />
     </div>

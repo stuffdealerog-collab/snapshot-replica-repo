@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SocialProof from "@/components/SocialProof";
 import BentoGrid from "@/components/BentoGrid";
+import DestinationCards from "@/components/DestinationCards";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -11,6 +12,7 @@ const Index = () => {
       <HeroSection />
       <SocialProof />
       <BentoGrid />
+      <DestinationCards />
       <Footer />
     </div>
   );

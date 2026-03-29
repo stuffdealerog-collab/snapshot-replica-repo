@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Zap, Bot, Target, CheckCircle } from "lucide-react";
+import { Zap, UserCheck, Target, CheckCircle } from "lucide-react";
 import { useLang } from "@/lib/LangContext";
 
 const cardVariants = {
@@ -16,7 +16,7 @@ const BentoGrid = () => {
 
   const cards = [
     { icon: Zap, title: t("bento.speed.title"), text: t("bento.speed.text"), className: "md:col-span-2 md:row-span-1" },
-    { icon: Bot, title: t("bento.ai.title"), text: t("bento.ai.text"), className: "md:col-span-1 md:row-span-2" },
+    { icon: UserCheck, title: t("bento.ai.title"), text: t("bento.ai.text"), className: "md:col-span-1 md:row-span-2" },
     { icon: Target, title: t("bento.coach.title"), text: t("bento.coach.text"), className: "md:col-span-1 md:row-span-1" },
     { icon: CheckCircle, title: t("bento.hassle.title"), text: t("bento.hassle.text"), className: "md:col-span-1 md:row-span-1" },
   ];

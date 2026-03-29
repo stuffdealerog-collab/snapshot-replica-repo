@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, Loader2 } from "lucide-react";
+import { Send, User, Loader2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { useLang } from "@/lib/LangContext";
 import { useApp } from "@/lib/AppContext";
-import { getChatMessages, calculateTotal } from "@/lib/api";
+import { calculateTotal, sendChatMessage, type ChatMessage } from "@/lib/api";
+import { toast } from "sonner";
 
-type Message = { role: "bot" | "user"; text: string };
+type DisplayMessage = { role: "specialist" | "user"; text: string };
 
 const TypingIndicator = () => (
   <div className="flex items-center gap-1 px-4 py-3">
@@ -24,7 +25,7 @@ const TypingIndicator = () => (
 
 const Chat = () => {
   const { t } = useLang();
-  const { applicationData, applicationId, invoiceId } = useApp();
+  const { applicationData, applicationId, invoiceId, setInvoiceId } = useApp();
   const navigate = useNavigate();
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -32,62 +33,153 @@ const Chat = () => {
   const country = applicationData?.destination || "USA";
   const purpose = applicationData?.purpose || "Work";
   const express = applicationData?.express || false;
-  const { base, expressFee, total } = calculateTotal(country, purpose, express);
+  const { base, fee, expressFee: expressAdd, total } = calculateTotal(country, purpose, express);
 
-  const scriptedMessages = getChatMessages(name, country, purpose);
-
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<DisplayMessage[]>(() => {
+    const saved = sessionStorage.getItem(`chat_msg_${applicationId}`);
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>(() => {
+    const saved = sessionStorage.getItem(`chat_hist_${applicationId}`);
+    return saved ? JSON.parse(saved) : [];
+  });
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
-  const [scriptIndex, setScriptIndex] = useState(0);
-  const [waitingForInput, setWaitingForInput] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
+  
+  const [consultationDone, setConsultationDone] = useState<boolean>(() => {
+    const saved = sessionStorage.getItem(`chat_done_${applicationId}`);
+    return saved ? JSON.parse(saved) : false;
+  });
+  const [inputEnabled, setInputEnabled] = useState(!consultationDone && messages.length > 0);
+  
+  const [generatedInvoiceId, setGeneratedInvoiceId] = useState<string | null>(() => {
+    const saved = sessionStorage.getItem(`chat_inv_${applicationId}`);
+    return saved ? JSON.parse(saved) : (invoiceId || null);
+  });
+  const [shareToken, setShareToken] = useState<string | null>(() => {
+    const saved = sessionStorage.getItem(`chat_token_${applicationId}`);
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem(`chat_msg_${applicationId}`, JSON.stringify(messages));
+    sessionStorage.setItem(`chat_hist_${applicationId}`, JSON.stringify(chatHistory));
+    sessionStorage.setItem(`chat_done_${applicationId}`, JSON.stringify(consultationDone));
+    sessionStorage.setItem(`chat_inv_${applicationId}`, JSON.stringify(generatedInvoiceId));
+    sessionStorage.setItem(`chat_token_${applicationId}`, JSON.stringify(shareToken));
+  }, [messages, chatHistory, consultationDone, generatedInvoiceId, shareToken, applicationId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, typing, showLoading]);
+  }, [messages, typing]);
 
-  // Advance scripted messages
+  // Send the first empty message to start the consultation if no history exists
   useEffect(() => {
-    if (waitingForInput || scriptIndex >= scriptedMessages.length) return;
+    if (messages.length > 0) return; // Prevent restarting if loaded from storage
+    
+    const startConsultation = async () => {
+      setTyping(true);
+      try {
+        const initialHistory: ChatMessage[] = [
+          { role: "user", content: `Hi, my name is ${name}. I want to apply for a ${country} ${purpose} visa.` },
+        ];
 
-    const msg = scriptedMessages[scriptIndex];
+        const response = await sendChatMessage(
+          applicationId,
+          initialHistory,
+          country,
+          purpose,
+          name
+        );
 
-    if (msg.text === "__LOADING__") {
-      setShowLoading(true);
-      const t = setTimeout(() => {
-        setShowLoading(false);
-        setScriptIndex((i) => i + 1);
-      }, 2000);
-      return () => clearTimeout(t);
-    }
+        setChatHistory([
+          ...initialHistory,
+          { role: "assistant", content: response.reply },
+        ]);
 
-    if (msg.text === "__INVOICE__") {
-      setMessages((prev) => [...prev, { role: "bot", text: "__INVOICE__" }]);
-      return;
-    }
+        // Show the specialist's reply
+        setMessages([
+          { role: "specialist", text: response.reply },
+        ]);
 
-    setTyping(true);
-    const delay = msg.text.length > 100 ? 2000 : 1200;
-    const t = setTimeout(() => {
-      setTyping(false);
-      setMessages((prev) => [...prev, { role: "bot", text: msg.text }]);
-      if (msg.expectsInput) {
-        setWaitingForInput(true);
-      } else {
-        setScriptIndex((i) => i + 1);
+        setInputEnabled(true);
+      } catch (err) {
+        console.error("Failed to start consultation:", err);
+        setMessages([
+          { role: "specialist", text: `Welcome, ${name}! 👋 I'm your visa specialist. I'll help prepare your application for a ${country} ${purpose} visa. Let's get started — what is the primary purpose of your trip?` },
+        ]);
+        setInputEnabled(true);
+      } finally {
+        setTyping(false);
       }
-    }, delay);
-    return () => clearTimeout(t);
-  }, [scriptIndex, waitingForInput]);
+    };
 
-  const handleSend = () => {
-    if (!input.trim() || !waitingForInput) return;
-    setMessages((prev) => [...prev, { role: "user", text: input.trim() }]);
+    startConsultation();
+  }, [applicationId, country, name, purpose, messages.length]);
+
+  const handleSend = async () => {
+    if (!input.trim() || !inputEnabled || consultationDone) return;
+
+    const userText = input.trim();
     setInput("");
-    setWaitingForInput(false);
-    setScriptIndex((i) => i + 1);
+    setInputEnabled(false);
+
+    // Display user message
+    setMessages((prev) => [...prev, { role: "user", text: userText }]);
+
+    // Add to chat history
+    const newHistory: ChatMessage[] = [
+      ...chatHistory,
+      { role: "user", content: userText },
+    ];
+
+    // Show typing indicator
+    setTyping(true);
+
+    try {
+      const response = await sendChatMessage(
+        applicationId,
+        newHistory,
+        country,
+        purpose,
+        name
+      );
+
+      // Update history with specialist response
+      setChatHistory([
+        ...newHistory,
+        { role: "assistant", content: response.reply },
+      ]);
+
+      // Show specialist reply
+      setMessages((prev) => [...prev, { role: "specialist", text: response.reply }]);
+
+      if (response.consultation_complete && response.invoice_id) {
+        setConsultationDone(true);
+        setGeneratedInvoiceId(response.invoice_id);
+        if (response.share_token) setShareToken(response.share_token);
+        if (setInvoiceId) setInvoiceId(response.invoice_id);
+
+        // Show the invoice card after a short delay
+        setTimeout(() => {
+          setMessages((prev) => [...prev, { role: "specialist", text: "__INVOICE__" }]);
+        }, 1500);
+      } else {
+        setInputEnabled(true);
+      }
+    } catch (err) {
+      console.error("Chat error:", err);
+      setMessages((prev) => [
+        ...prev,
+        { role: "specialist", text: "I'm sorry, there was a connection issue. Please try sending your message again." },
+      ]);
+      setInputEnabled(true);
+    } finally {
+      setTyping(false);
+    }
   };
+
+  const currentInvoiceId = generatedInvoiceId || invoiceId;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -112,9 +204,9 @@ const Chat = () => {
                 transition={{ duration: 0.3 }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                {msg.role === "bot" && msg.text !== "__INVOICE__" && (
+                {msg.role === "specialist" && msg.text !== "__INVOICE__" && (
                   <div className="mr-2 mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/20">
-                    <Bot className="h-4 w-4 text-primary" />
+                    <User className="h-4 w-4 text-primary" />
                   </div>
                 )}
 
@@ -122,22 +214,25 @@ const Chat = () => {
                   <div className="w-full max-w-sm">
                     <div className="glass rounded-2xl p-6 border border-primary/20">
                       <p className="mb-1 text-xs font-medium text-muted-foreground">{t("chat.invoice.title")}</p>
-                      <p className="mb-4 text-sm font-bold text-foreground">#{invoiceId}</p>
+                      <p className="mb-4 text-sm font-bold text-foreground">#{currentInvoiceId}</p>
                       <div className="space-y-2 text-xs mb-4">
                         <div className="flex justify-between"><span className="text-muted-foreground">{country} {purpose} Visa — Base</span><span className="text-foreground">${base}</span></div>
-                        <div className="flex justify-between"><span className="text-muted-foreground">Processing Fee</span><span className="text-foreground">$100</span></div>
-                        {express && <div className="flex justify-between"><span className="text-muted-foreground">Express Handling</span><span className="text-accent">$150</span></div>}
+                        <div className="flex justify-between"><span className="text-muted-foreground">Processing Fee</span><span className="text-foreground">${fee}</span></div>
+                        {express && <div className="flex justify-between"><span className="text-muted-foreground">Express Handling</span><span className="text-accent">${expressAdd}</span></div>}
                         <div className="flex justify-between border-t border-border pt-2 font-bold"><span className="text-foreground">{t("pricing.total")}</span><span className="text-foreground">${total}</span></div>
                       </div>
                       <div className="flex gap-2">
                         <button
-                          onClick={() => navigate(`/invoice/${invoiceId}`)}
+                          onClick={() => navigate(`/invoice/${shareToken || currentInvoiceId}`)}
                           className="flex-1 rounded-lg bg-primary py-2.5 text-xs font-bold text-primary-foreground hover:brightness-110 transition-all"
                         >
                           {t("chat.invoice.pay")}
                         </button>
                         <button
-                          onClick={() => navigator.clipboard.writeText(`${window.location.origin}/invoice/${invoiceId}`)}
+                          onClick={() => {
+                            navigator.clipboard.writeText(`${window.location.origin}/invoice/${shareToken || currentInvoiceId}`);
+                            toast.success("Link copied to clipboard!");
+                          }}
                           className="flex-1 rounded-lg border border-border py-2.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
                         >
                           {t("chat.invoice.share")}
@@ -163,18 +258,11 @@ const Chat = () => {
           {typing && (
             <div className="flex items-start">
               <div className="mr-2 mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/20">
-                <Bot className="h-4 w-4 text-primary" />
+                <User className="h-4 w-4 text-primary" />
               </div>
               <div className="glass rounded-2xl rounded-bl-md">
                 <TypingIndicator />
               </div>
-            </div>
-          )}
-
-          {showLoading && (
-            <div className="flex items-center justify-center py-6">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-              <span className="ml-2 text-sm text-muted-foreground">Generating invoice...</span>
             </div>
           )}
 
@@ -190,19 +278,19 @@ const Chat = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            placeholder={t("chat.placeholder")}
-            disabled={!waitingForInput}
+            placeholder={consultationDone ? "Consultation complete ✅" : t("chat.placeholder")}
+            disabled={!inputEnabled || consultationDone}
             className="flex-1 rounded-xl border border-border bg-muted/20 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none disabled:opacity-50 transition-all"
           />
           <button
             onClick={handleSend}
-            disabled={!waitingForInput || !input.trim()}
+            disabled={!inputEnabled || !input.trim() || consultationDone}
             className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-all hover:brightness-110 disabled:opacity-50"
           >
             <Send className="h-4 w-4" />
           </button>
         </div>
-        <p className="pb-2 text-center text-[10px] text-muted-foreground/50">{t("chat.powered")}</p>
+        <p className="pb-2 text-center text-[10px] text-muted-foreground/50">Secure consultation · End-to-end encrypted</p>
       </div>
     </div>
   );

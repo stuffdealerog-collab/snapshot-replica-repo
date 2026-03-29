@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -40,6 +41,15 @@
     --glass-border: 0 0% 100% / 0.08;
     --glass-hover: 0 0% 100% / 0.08;
     --glow-primary: 217 91% 53% / 0.4;
+
+    /* Midnight Executive palette */
+    --crm-bg: 0 0% 7%;
+    --crm-navy: 213 30% 16%;
+    --crm-gold: 40 47% 56%;
+    --crm-gold-muted: 40 30% 40%;
+    --crm-surface: 0 0% 10%;
+    --crm-surface-elevated: 0 0% 13%;
+    --crm-border: 0 0% 100% / 0.06;
   }
 }
 

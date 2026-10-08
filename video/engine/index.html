@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="engine.js"></script>
+<script src="data/timing.js"></script>
+<script src="data/assets.js"></script>
+<script src="scenes.js"></script>
+<script>
+(async () => {
+  const fams = ['Spectral', 'Cormorant Garamond', 'JetBrains Mono', 'Unbounded', 'Inter Tight', 'Onest'];
+  const probes = [];
+  for (const f of fams) for (const w of [200, 300, 400, 500, 600, 700, 800]) {
+    probes.push(document.fonts.load(`${w} 40px "${f}"`, 'Абв abc 123'));
+    probes.push(document.fonts.load(`italic ${w} 40px "${f}"`, 'Абв abc 123'));
+  }
+  await Promise.all(probes);
+  await document.fonts.ready;
+  await window.SETUP();
+  window.READY = true;
+})();
+</script>
+</body></html>

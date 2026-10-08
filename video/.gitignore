@@ -1,0 +1,8 @@
+# regenerable / large
+out/segments/
+out/*.mp4
+!out/naslednik_preview_720p.mp4
+audio/*.wav
+models/
+node_modules/
+audio/voice/*.wav

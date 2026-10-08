@@ -1,0 +1,190 @@
+{
+ "total": 447.904,
+ "music": [
+  {
+   "file": "audio/music.wav",
+   "start": 0,
+   "gain": -4,
+   "fade_in": 0.5,
+   "fade_out": 3
+  }
+ ],
+ "sfx": [
+  {
+   "file": "audio/sfx_raw/paper_a.mp3",
+   "t": 0.2,
+   "gain": -4,
+   "rev": 0.1
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 12.782,
+   "gain": -2,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/paper_a.mp3",
+   "t": 15.708,
+   "gain": -2,
+   "rev": 0.1
+  },
+  {
+   "file": "audio/sfx_raw/pencil_a.mp3",
+   "t": 29.989,
+   "gain": -4,
+   "rev": 0
+  },
+  {
+   "file": "audio/sfx_raw/paper_a.mp3",
+   "t": 47.259,
+   "gain": -3,
+   "rev": 0.1
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 55.142,
+   "gain": 3,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 57.792,
+   "gain": -2,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 69.032,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 71.376,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 73.666,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 79.983,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 84.943,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 87.913,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 88.693,
+   "gain": -6,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/paper_a.mp3",
+   "t": 90.457,
+   "gain": -3,
+   "rev": 0.1
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 102.984,
+   "gain": -5,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/paper_a.mp3",
+   "t": 116.565,
+   "gain": -3,
+   "rev": 0.1
+  },
+  {
+   "file": "audio/sfx_raw/pencil_a.mp3",
+   "t": 135.224,
+   "gain": -6,
+   "rev": 0
+  },
+  {
+   "file": "audio/sfx_raw/pencil_a.mp3",
+   "t": 138.464,
+   "gain": -6,
+   "rev": 0
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 141.485,
+   "gain": -3,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 229.705,
+   "gain": 0,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/pencil_a.mp3",
+   "t": 244.023,
+   "gain": -5,
+   "rev": 0
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 297.675,
+   "gain": 0,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 356.776,
+   "gain": -5,
+   "rev": 0.3
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 390.862,
+   "gain": -1,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/boom_a.mp3",
+   "t": 392.338,
+   "gain": -2,
+   "rev": 0.5
+  },
+  {
+   "file": "audio/sfx_raw/stamp_a.mp3",
+   "t": 396.188,
+   "gain": 3,
+   "rev": 0.15,
+   "len": 1.2
+  },
+  {
+   "file": "audio/sfx_raw/stamp_a.mp3",
+   "t": 406.111,
+   "gain": 3,
+   "rev": 0.15,
+   "len": 1.2
+  },
+  {
+   "file": "audio/sfx_raw/swarm_a.mp3",
+   "t": 429.893,
+   "gain": -2,
+   "rev": 0.3
+  }
+ ]
+}

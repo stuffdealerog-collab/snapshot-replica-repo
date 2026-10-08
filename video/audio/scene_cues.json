@@ -1,0 +1,150 @@
+{
+ "sfx": [
+  {
+   "t": 0.2,
+   "name": "paper",
+   "gain": -6
+  },
+  {
+   "t": 12.782,
+   "name": "boom",
+   "gain": -8
+  },
+  {
+   "t": 15.708,
+   "name": "paper",
+   "gain": -4
+  },
+  {
+   "t": 29.989,
+   "name": "pencil",
+   "gain": -8
+  },
+  {
+   "t": 47.259,
+   "name": "paper",
+   "gain": -5
+  },
+  {
+   "t": 55.142,
+   "name": "boom",
+   "gain": -3
+  },
+  {
+   "t": 57.792,
+   "name": "boom",
+   "gain": -8
+  },
+  {
+   "t": 69.032,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 71.376,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 73.666,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 79.983,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 84.943,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 87.913,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 88.693,
+   "name": "swarm",
+   "gain": -10
+  },
+  {
+   "t": 90.457,
+   "name": "paper",
+   "gain": -5
+  },
+  {
+   "t": 102.984,
+   "name": "swarm",
+   "gain": -9
+  },
+  {
+   "t": 116.565,
+   "name": "paper",
+   "gain": -5
+  },
+  {
+   "t": 135.224,
+   "name": "pencil",
+   "gain": -10
+  },
+  {
+   "t": 138.464,
+   "name": "pencil",
+   "gain": -10
+  },
+  {
+   "t": 141.485,
+   "name": "boom",
+   "gain": -9
+  },
+  {
+   "t": 229.705,
+   "name": "boom",
+   "gain": -6
+  },
+  {
+   "t": 244.023,
+   "name": "pencil",
+   "gain": -9
+  },
+  {
+   "t": 297.675,
+   "name": "boom",
+   "gain": -6
+  },
+  {
+   "t": 356.776,
+   "name": "swarm",
+   "gain": -9
+  },
+  {
+   "t": 390.862,
+   "name": "boom",
+   "gain": -7
+  },
+  {
+   "t": 392.338,
+   "name": "boom",
+   "gain": -8
+  },
+  {
+   "t": 396.188,
+   "name": "stamp",
+   "gain": -3
+  },
+  {
+   "t": 406.111,
+   "name": "stamp",
+   "gain": -3
+  },
+  {
+   "t": 429.893,
+   "name": "swarm",
+   "gain": -6
+  }
+ ],
+ "total": 447.904
+}

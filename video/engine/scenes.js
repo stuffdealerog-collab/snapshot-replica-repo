@@ -475,8 +475,8 @@ function buildScenes() {
   keys.slice(1).forEach(k => cue(k.t - (k.dur || 1.5), 'swarm', -10));
   // Major transitions citation
   const tNew = Wt('v05', 'новый');
-  S('mst', tBook - .2, Ls('v06') + .3, (g, t) => {
-    const e = env(t, tBook - .2, Ls('v06') + .3, .4, .5);
+  S('mst', tBook - .2, Ls('v06') - .05, (g, t) => {
+    const e = env(t, tBook - .2, Ls('v06') - .05, .4, .45);
     g.save(); g.globalAlpha = e;
     // book spine / citation card
     const p = E.outE(prog(t, tBook - .2, tBook + .6));
@@ -490,24 +490,26 @@ function buildScenes() {
       text(g, '1995', w - 50, 110, { font: 'Cormorant Garamond', size: 34, weight: 600, align: 'right' });
     } });
     const l1 = wordsAt('v05', 'большими эволюционными переходами');
-    riseWords(g, l1.words.slice(0, 1), 1040, 430, t, l1.times, { font: 'Unbounded', size: 54, weight: 800 });
-    riseWords(g, l1.words.slice(1), 1040, 500, t, l1.times.slice(1), { font: 'Unbounded', size: 54, weight: 800 });
+    riseWords(g, l1.words.slice(0, 1), 1040, 380, t, l1.times, { font: 'Unbounded', size: 50, weight: 800 });
+    riseWords(g, l1.words.slice(1, 2), 1040, 446, t, l1.times.slice(1, 2), { font: 'Unbounded', size: 50, weight: 800 });
+    riseWords(g, l1.words.slice(2), 1040, 512, t, l1.times.slice(2), { font: 'Unbounded', size: 50, weight: 800, color: C.red });
     const l2 = wordsAt('v05', 'новый способ хранить и передавать информацию');
     riseWords(g, ['каждый', 'раз', '—'].concat(l2.words.slice(0, 2)), 1040, 620, t, [tNew - .5, tNew - .4, tNew - .3].concat(l2.times.slice(0, 2)), { font: 'Spectral', size: 42, style: 'italic' });
     riseWords(g, l2.words.slice(2), 1040, 676, t, l2.times.slice(2), { font: 'Spectral', size: 42, style: 'italic' });
     g.restore();
-    estamp(g, t, Wt('v05', 'переходами') + .3, Ls('v06') + .1, 'ФАКТ', 1600, 820, { rot: .06 });
+    estamp(g, t, Wt('v05', 'переходами') + .3, Ls('v06') - .4, 'ФАКТ', 1600, 820, { rot: .06 });
     src(g, t, tBook, Ls('v06'), 'Maynard Smith & Szathmáry, «The Major Transitions in Evolution», 1995');
   });
   cue(tBook - .2, 'paper', -5);
   // neural net made of our words
   const v06 = Ls('v06'), tWords = Wt('v06', 'слов'), tBuk = Wt('v06', 'буквально');
-  S('net', v06 - .3, Ls('v07') + .3, (g, t) => {
-    const e = env(t, v06 - .3, Ls('v07') + .3, .4, .5);
+  S('net', v06 - .1, Ls('v07') + .3, (g, t) => {
+    const e = env(t, v06 - .1, Ls('v07') + .3, .3, .5);
     g.save(); g.globalAlpha = e;
-    const p = prog(t, v06 - .3, v06 + 1.4);
-    // morph chip -> net
-    if (t < tBuk - .2) drawMorph(g, cloud('chip'), cloud('net'), p, { x: 760, y: 560, scale: .76 }, { x: 760, y: 560, scale: .8 });
+    const p = prog(t, v06 + .5, v06 + 2.0);
+    // chip reappears, then morphs into the network
+    if (t < v06 + .5) drawCloud(g, cloud('chip'), { x: 760, y: 560, scale: .76, reveal: ep(t, v06 - .1, v06 + .5) });
+    else if (t < tBuk - .2) drawMorph(g, cloud('chip'), cloud('net'), p, { x: 760, y: 560, scale: .76 }, { x: 760, y: 560, scale: .8 });
     else glyphCloud(g, t, cloud('net'), 760, 560, .8, ep(t, tBuk - .2, tWords + .3));
     const l = wordsAt('v06', 'первый носитель, который не только хранит записанное людьми,');
     const l2 = wordsAt('v06', 'но и сам его перекомбинирует.');
@@ -706,6 +708,13 @@ function buildScenes() {
     const e = env(t, n05 - .2, Ls('n06') + .1, .4, .35);
     g.save(); g.globalAlpha = e;
     drawCloud(g, cloud('android'), { x: 560, y: 600, scale: .72, reveal: ep(t, n05 - .2, n05 + 1.5) });
+    const hk = 1 - ep(t, tNum - .5, tNum - .1);
+    if (hk > 0) {
+      g.save(); g.globalAlpha *= hk;
+      text(g, 'РУКИ — НЕТ', 1084, 520, { font: 'Unbounded', size: 92, weight: 800, alpha: ep(t, n05 - .1, n05 + .5) });
+      text(g, 'ловкость, автономность в доме, непредсказуемая среда', 1088, 590, { font: 'JetBrains Mono', size: 22, color: C.inkSoft, alpha: ep(t, n05 + .6, n05 + 1.2) });
+      g.restore();
+    }
     text(g, '13–18 тыс.', 1080, 420, { font: 'Unbounded', size: 96, weight: 800, alpha: ep(t, tNum - .1, tNum + .5) });
     text(g, 'человекоподобных роботов выпущено в 2025 году', 1084, 480, { font: 'Spectral', size: 34, style: 'italic', alpha: ep(t, tNum + .3, tNum + .8) });
     // bar: >85% demos/education/research
@@ -1157,7 +1166,7 @@ function buildScenes() {
     g.save(); g.globalAlpha = e;
     text(g, 'НАСЛЕДНИКИ', W / 2, 520, { font: 'Unbounded', size: 120, weight: 800, align: 'center', ls: 12 });
     text(g, 'источники и проверка фактов — в описании', W / 2, 600, { font: 'JetBrains Mono', size: 24, ls: 3, align: 'center', color: C.inkSoft });
-    text(g, 'голос: ElevenLabs v3 · сценарий, анимация, музыка: Claude (Anthropic) · исходная фраза: человек', W / 2, 680, { font: 'JetBrains Mono', size: 18, ls: 1, align: 'center', color: C.inkSoft });
+    text(g, 'голос: синтез Piper (ru_RU-denis) · шумы: ElevenLabs · сценарий, анимация, музыка: Claude (Anthropic) · исходная фраза: человек', W / 2, 680, { font: 'JetBrains Mono', size: 18, ls: 1, align: 'center', color: C.inkSoft });
     g.restore();
   });
 }

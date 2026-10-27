@@ -4,12 +4,12 @@
 
 | Файл | Спикер | Слайды | Длина |
 |---|---|---|---|
-| `1_Javohir_Azamov_Intro_Conclusion.mp3` | Javohir Azamov | 01, 02, 03, 04, 11, 12 | 3:10 |
-| `2_Muhammadrizo_Asatullayev_Causes.mp3` | Muhammadrizo Asatullayev | 01, 05, 06 | 3:10 |
-| `3_Ismoilbek_Asqarbekov_Effects.mp3` | Ismoilbek Asqarbekov | 01, 07, 08 | 3:10 |
-| `4_Asrorbek_Giyosov_Resolution.mp3` | Asrorbek G'iyosov | 01, 09, 10 | 3:10 |
+| `1_Javohir_Azamov_Intro_Conclusion.mp3` | Javohir Azamov | 01, 02, 03, 04, 11, 12 | 2:51 |
+| `2_Muhammadrizo_Asatullayev_Causes.mp3` | Muhammadrizo Asatullayev | 01, 05, 06 | 2:48 |
+| `3_Ismoilbek_Asqarbekov_Effects.mp3` | Ismoilbek Asqarbekov | 01, 07, 08 | 2:52 |
+| `4_Asrorbek_Giyosov_Resolution.mp3` | Asrorbek G'iyosov | 01, 09, 10 | 2:55 |
 
-- Темп выставлен под целевые 3:10 из Prep Pack (допустимо 3:00–3:30). Если говоришь синхронно с записью, укладываешься по времени.
+- Обычная скорость голоса, без замедления. Записи немного короче 3:00, поэтому на экзамене говорите чуть медленнее и делайте паузы: цель 3:10 (допустимо 3:00–3:30).
 - Пауза ~2.5 с означает клик на следующий слайд. У Javohir после самопредставления пауза короче: на самом экзамене в этот момент представляются остальные трое.
 - ID-номера читаются по цифрам, как в Prep Pack («bee — two, six, zero…»).
 - Узбекские имена англоязычный голос произносит приблизительно, свои имена говорите как обычно.
